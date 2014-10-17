@@ -5,6 +5,8 @@ for Question Interpretation
 
 官方网站: http://timeml.org/site/tarsqi/index.html
 
+[English](https://github.com/tankle/TARSQI/blob/master/README.en)
+
 本项目是TARSQI的一个镜像，由于原始项目貌似没有继续开发（至少官方发给我的是这个）。
 
 由于实验室项目的需要，我将继续改进这个软件。
@@ -16,7 +18,7 @@ for Question Interpretation
 
 #TODO
 1. 修改读取文档创建时间，统一从xml文档中读取
-
+2. 增加说明文档
 
 如有任何问题，欢迎联系！
 
