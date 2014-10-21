@@ -2266,7 +2266,7 @@ sub TE_AddAttributes {
 	}elsif($TEstring =~ /\bmore\s+than\b/io){ 
 	    $Attributes .= " MOD=\"MORE_THAN\"";
 	} elsif($TEstring =~ /\b(early|start|beginning|dawn of)\b/io) {
-	    $Attributes .= " MOD=\"EARLY\"";
+	    $Attributes .= " MOD=\"START\"";
 	} elsif($TEstring =~ /\bmid(dle)?\b/io) {
 	    $Attributes .= " MOD=\"MID\"";
 	} elsif($TEstring =~ /\bat\s+least\b/io){

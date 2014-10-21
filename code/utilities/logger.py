@@ -159,12 +159,14 @@ def out(*args):
     file = file.replace('.py','')
     #line = str(frame[2])
     prefix = 'LOG (' + str(depth) + ') [' + file + '.' + function + ']'
-    print prefix + ' ',
+    #print(prefix + ' ', end=" ")
+    print(prefix + ' ',)
     for arg in args:
-        print arg,
-    print
+        #print(arg, end=" ")
+        print(arg,)
+    print()
     
 def outnl():
     if not STDOUT_PRINTING:
         return
-    print
+    print()

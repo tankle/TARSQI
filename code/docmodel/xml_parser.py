@@ -262,18 +262,18 @@ class XmlDocument:
     def pretty_print(self):
         """Pretty printer for XmlDocuments. Pretty prints the list of elements
         and prints the tag dictionary to standard output."""
-        print self
-        print '<<XmlDocElements>>'
+        print(self)
+        print('<<XmlDocElements>>')
         element = self.elements[0]
         while element:
             string = element.get_content()
             element.pretty_print(indent='   ')
             element = element.get_next()
-        print '<<TagDictionary>>',
+        print('<<TagDictionary>>')
         for tag in self.tags.keys():
-            print "\n\n[" + tag + '] ',
+            print("\n\n[" + tag + '] ',)
             for el in self.tags[tag]:
-                print str(el.id),
+                print(str(el.id),)
 
 
 class XmlDocElement:
@@ -479,7 +479,7 @@ class XmlDocElement:
 
     def pretty_print(self, indent=''):
         """Pretty printer for XmlDocElements, prints the content of the element."""
-        print indent + 'ELEMENT(' + str(self.id) + '): ' + self.content
+        print(indent + 'ELEMENT(' + str(self.id) + '): ' + self.content)
 
 
 
@@ -528,10 +528,11 @@ def create_content_string(name, attrs):
         
 if __name__ == '__main__':
     
-    IN = sys.argv[1]
-    OUT = sys.argv[2]
-    
-    xmlfile = open(IN,"r")
+    #IN = sys.argv[1]
+    IN = r'D:\research\semeval2015\qa-tempeval-train\data\input\wsj_0127.tml.TE3input'
+    OUT = r'D:\research\semeval2015\qa-tempeval-train\data\input\wsj_0127.tml.TE3input.xml'
+
+    xmlfile = open(IN, "r")
     p = Parser()
-    DOC = p.parse(xmlfile)
+    DOC = p.parse_file(xmlfile)
     DOC.save_to_file(OUT)

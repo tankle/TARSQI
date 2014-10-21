@@ -133,7 +133,7 @@ class Document:
         return self.taggedEventsDict.get(eid,{}).get(att,False)
 
     def _OLD_storeEventValues(self, pairs):
-        print "PAIRS:", pairs
+        print("PAIRS:", pairs)
         try: eid = pairs[EID]
         except: eid = pairs[EVENTID]
         try:
@@ -151,7 +151,7 @@ class Document:
                 #if att == EID: pass
                 #else: evInfo[att] = pairs[att]
                 self.taggedEventsDict[eid] = evInfo
-            print 'EVINFO', evInfo
+            print('EVINFO', evInfo)
     
     def storeEventValues(self, pairs):
         """Store attributes associated to an event (that is, they live on an
@@ -296,7 +296,9 @@ class Document:
         elif linkType == TLINK:
             return self._getNextSlinkID()
         else:
-            logger.error("Could not create link ID for link type" + str(linkType))
+            #logger.error("Could not create link ID for link type" + str(linkType))
+            #TODO
+            print("ERROR")
 
     def _getNextAlinkID(self):
         """Increment alinkCount and return a new unique lid."""
@@ -316,7 +318,9 @@ class Document:
     def _insertNode(self, nodeNo, string):
         """Inserts a new event tag or instance tag into the insertDict."""
         if self.insertDict.has_key(nodeNo):
-            logger.error("Already have inserted an event or instance tag for node: "+str(nodeNo))
+            #TODO
+            print('EOOOR')
+            #logger.error("Already have inserted an event or instance tag for node: "+str(nodeNo))
         else:
             self.insertDict[nodeNo] = string
     
@@ -371,31 +375,33 @@ class Document:
     def pretty_print(self):
         """Pretty printer that prints all instance variables and a neat
         representation of the sentence list."""
-        print "\n<<Document %s>>\n" % self.sourceFileName
-        print 'nodeCounter', self.nodeCounter
-        print 'taggedEventsDict'
+        print("\n<<Document %s>>\n" % self.sourceFileName)
+        print('nodeCounter', self.nodeCounter)
+        print('taggedEventsDict')
         eids = self.taggedEventsDict.keys()
         eids.sort()
         for eid in eids:
-            print ' ', eid, '=> {',
+            #print(' ', eid, '=> {', end=" ")
+            print(' ', eid, '=> {', )
             attrs = self.taggedEventsDict[eid].keys()
             attrs.sort()
             for attr in attrs:
-                print "%s=%s" % (attr, str(self.taggedEventsDict[eid][attr])),
-            print '}'
-        print 'instanceCounter =', self.instanceCounter
-        print 'insertDict =', self.insertDict
-        print 'eventCount =', self.eventCount
-        print 'alinkCount =', self.alinkCount
-        print 'slinkCount =', self.slinkCount
-        print 'linkCount =', self.linkCount
-        print 'postionCount =', self.positionCount
+                #print("%s=%s" % (attr, str(self.taggedEventsDict[eid][attr])),end=" ")
+                print("%s=%s" % (attr, str(self.taggedEventsDict[eid][attr])),)
+            print('}')
+        print('instanceCounter =', self.instanceCounter)
+        print('insertDict =', self.insertDict)
+        print('eventCount =', self.eventCount)
+        print('alinkCount =', self.alinkCount)
+        print('slinkCount =', self.slinkCount)
+        print('linkCount =', self.linkCount)
+        print('postionCount =', self.positionCount)
         count = 0
         for sentence in self.sentenceList:
             count = count + 1
-            print "\nSENTENCE " + str(count) + "\n"
+            print("\nSENTENCE " + str(count) + "\n")
             sentence.pretty_print()
-        print "\n"
+        print("\n")
 
         
 def protectNode(node):

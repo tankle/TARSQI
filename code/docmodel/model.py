@@ -1,3 +1,4 @@
+#-*- coding:utf-8 -*-
 """Document model and meta data parser
 
 This module contains classes that implement the document model and the
@@ -162,7 +163,9 @@ class MetaDataParser:
 
 class MetaDataParser_TimeBank(MetaDataParser):
 
-    """The meta data parser for TimeBank documents."""
+    """The meta data parser for TimeBank documents.
+        获取document创建时间
+    """
 
     def get_dct(self, xmldoc):
         """Takes an XmlDocument, extracts the document creation time,
@@ -171,74 +174,79 @@ class MetaDataParser_TimeBank(MetaDataParser):
         # set DCT default
         dct = get_today()
 
-        docsource = self._get_doc_source(xmldoc)
-
-        if docsource == 'ABC':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = docno[3:11]
-            
-        elif docsource == 'AP':
-            fileid = xmldoc.tags['FILEID'][0].collect_content().strip()
-            result = re.compile("(AP-NR-)?(\d+)-(\d+)-(\d+)").match(fileid)
-            if result:
-                (crap, month, day, year) = result.groups()
-                dct = "19%s%s%s" % (year, month, day)
-            else:
-                logger.warn("Could not get date from %s" % fileid)
-                
-        elif docsource == 'APW':
-            date_time = xmldoc.tags['DATE_TIME'][0].collect_content().strip()
-            result = re.compile("(\d+)/(\d+)/(\d+)").match(date_time)
-            if result:
-                (month, day, year) = result.groups()
-                dct = "%s%s%s" % (year, month, day)
-            else:
-                logger.warn("Could not get date from %s" % fileid)
-            
-        elif docsource == 'CNN':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = docno[3:11]
-
-        elif docsource == 'NYT':
-            date_time = xmldoc.tags['DATE_TIME'][0].collect_content().strip()
-            result = re.compile("(\d+)/(\d+)/(\d+)").match(date_time)
-            if result:
-                (month, day, year) = result.groups()
-                dct = "%s%s%s" % (year, month, day)
-            else:
-                logger.warn("Could not get date from %s" % fileid)
-
-        elif docsource == 'PRI':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = docno[3:11]
-
-        elif docsource == 'SJMN':
-            pubdate = xmldoc.tags['PUBDATE'][0].collect_content().strip()
-            dct = '19' + pubdate
-
-        elif docsource == 'VOA':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = docno[3:11]
-
-        elif docsource == 'WSJ':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = '19' + docno[3:9]
-
-        elif docsource == 'eaX':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = '19' + docno[2:8]
-
-        elif docsource == 'ea':
-            docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
-            dct = '19' + docno[2:8]
+        # docsource = self._get_doc_source(xmldoc)
+        #
+        # if docsource == 'ABC':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = docno[3:11]
+        #
+        # elif docsource == 'AP':
+        #     fileid = xmldoc.tags['FILEID'][0].collect_content().strip()
+        #     result = re.compile("(AP-NR-)?(\d+)-(\d+)-(\d+)").match(fileid)
+        #     if result:
+        #         (crap, month, day, year) = result.groups()
+        #         dct = "19%s%s%s" % (year, month, day)
+        #     else:
+        #         logger.warn("Could not get date from %s" % fileid)
+        #
+        # elif docsource == 'APW':
+        #     date_time = xmldoc.tags['DATE_TIME'][0].collect_content().strip()
+        #     result = re.compile("(\d+)/(\d+)/(\d+)").match(date_time)
+        #     if result:
+        #         (month, day, year) = result.groups()
+        #         dct = "%s%s%s" % (year, month, day)
+        #     else:
+        #         logger.warn("Could not get date from %s" % date_time)
+        #
+        # elif docsource == 'CNN':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = docno[3:11]
+        #
+        # elif docsource == 'NYT':
+        #     date_time = xmldoc.tags['DATE_TIME'][0].collect_content().strip()
+        #     result = re.compile("(\d+)/(\d+)/(\d+)").match(date_time)
+        #     if result:
+        #         (month, day, year) = result.groups()
+        #         dct = "%s%s%s" % (year, month, day)
+        #     else:
+        #         logger.warn("Could not get date from %s" % date_time)
+        #
+        # elif docsource == 'PRI':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = docno[3:11]
+        #
+        # elif docsource == 'SJMN':
+        #     pubdate = xmldoc.tags['PUBDATE'][0].collect_content().strip()
+        #     dct = '19' + pubdate
+        #
+        # elif docsource == 'VOA':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = docno[3:11]
+        #
+        # elif docsource == 'WSJ':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = '19' + docno[3:9]
+        #
+        # elif docsource == 'eaX':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = '19' + docno[2:8]
+        #
+        # elif docsource == 'ea':
+        #     docno = xmldoc.tags['DOCNO'][0].collect_content().strip()
+        #     dct = '19' + docno[2:8]
 
         #logger.out("DCT (%s): %s" % (docsource, dct))
+
+        dct = xmldoc.tags['TIMEX3'][0].attrs['value']
+        print(dct.replace('-', ''))
+
         return dct
 
-    
+
+    #TODO
     def _get_doc_source(self, xmldoc):
         """Returns the name of the content provider."""
-        tag_DOCNO = xmldoc.tags['DOCNO'][0]
+        tag_DOCNO = xmldoc.tags['DOCID'][0]
         content = tag_DOCNO.collect_content().strip()
         # TimeBank has only these providers
         for str in ('ABC', 'APW', 'AP', 'CNN', 'NYT', 'PRI', 'SJMN', 'VOA', 'WSJ', 'ea', 'ed'):
@@ -297,7 +305,10 @@ class SavedMethods:
         for fragment in self.fragments:
             tag = fragment[1]
             text = tag.collect_content()
-            match = re_DCT.search(text)
+            #match = re_DCT.search(text)
+            #我修改的
+            #TODO
+            match = re.search(text)
             if match:
                 dct = match.group()
                 dct = dct.replace('tid="t100"', 'tid="t0"')
@@ -309,10 +320,19 @@ class SavedMethods:
             first_data_tag = self.document.tags['Date'][0]
             self.dct = first_data_tag.attrs['value']
         except:
-            print "Warning: no DCT found in Date tag"
+            print("Warning: no DCT found in Date tag")
             self.dct = '20000101'
             
     def insert_dct(self, dct_string):
         if dct_string:
             article_tag = self.document.tags['Article'][0]
             article_tag.insert_string_after(dct_string)
+
+
+if __name__ == "__main__":
+    xmldoc = SimpleXmlModel(r'D:\research\semeval2015\qa-tempeval-train\data\input\wsj_0127.tml.TE3input')
+    xmldoc.set_metadata_parser(MetaDataParser_TimeBank())
+    xmldoc.read_document()
+    doc = xmldoc.get_xml_document()
+
+    print('Hello world')

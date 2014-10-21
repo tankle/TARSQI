@@ -164,6 +164,9 @@ class HtmlGenerator:
             fh.write("  %s%s\n" % (celltag, modality))
         fh.write("</table>\n</body>\n<html>\n")
 
+    #TODO
+    #属性 TYPE 大小写不一样，新的事type
+    #VAL  不一样，新的是value
     def create_timexes_table(self, file):
         fh = open(file,'w')
         fh.write("<html>\n<body>\n<table cellpadding=4>\n" +

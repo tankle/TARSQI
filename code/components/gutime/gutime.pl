@@ -302,7 +302,12 @@ sub ExDateTime
         #<PUBDATE> 911203 <PUBDATE>
         return "<DATE_TIME>$2/$3/$1</DATE_TIME>";
     }
-    
+    #Add by JasonTan
+    elsif ($line1 =~ /<DCT>(.*?)<\/DCT>/s){
+        #<DCT><TIMEX3 tid="t0" type="TIME" value="1998-02-19T08:02:00" temporalFunction="false" functionInDocument="CREATION_TIME">02/19/1998 08:02:00</TIMEX3></DCT>
+        #The TIMEX3 tag is removed in the front
+        return "<DATE_TIME>$1</DATE_TIME>";
+    }
     else {
         return "NULL";
     }

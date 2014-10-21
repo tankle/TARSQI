@@ -290,11 +290,11 @@ class TarsqiControl:
            content_tag  TEXT
            document     <docmodel.xml_parser.XmlDocument instance at 0x6b4170>"""
 
-        print self
-        print '   metadata    ', self.metadata
-        print '   parameters  ', self.processing_parameters
-        print '   content_tag ', self.content_tag
-        print '   document    ', self.xml_document
+        print(self)
+        print('   metadata    ', self.metadata)
+        print('   parameters  ', self.processing_parameters)
+        print('   content_tag ', self.content_tag)
+        print('   document    ', self.xml_document)
 
 
 def read_arguments(args):
@@ -347,7 +347,7 @@ def run_tarsqi(args):
             infile = input + os.sep + file
             outfile = output + os.sep + file
             if os.path.isfile(infile):
-                print infile
+                print(infile)
                 TarsqiControl(input_type, opts, infile, outfile).process()
 
     elif os.path.isfile(input):
@@ -375,7 +375,7 @@ def run_profiler(args):
     for arg in args:
         command += '"' + arg + '",'
     command = command[:-1] + ']).process()'
-    print 'COMMAND:', command
+    print('COMMAND:', command)
     profile.run(command, PROFILER_OUTPUT)
 
 
